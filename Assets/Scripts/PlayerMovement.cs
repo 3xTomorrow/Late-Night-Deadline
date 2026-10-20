@@ -28,20 +28,23 @@ public class PlayerMovement : MonoBehaviour
             _isMovingBackwards = false;
         }
 
-        if (Keyboard.current.dKey.isPressed)
-        { 
-            if(!_isMovingBackwards)
-                transform.localRotation *= Quaternion.Euler(0f, 0f, -turnSpeed*Time.deltaTime).normalized;
-            else
-                transform.localRotation *= Quaternion.Euler(0f, 0f, turnSpeed*Time.deltaTime).normalized;
-        }
+        if (!_isMovingBackwards)
+        {
+            if (Keyboard.current.dKey.isPressed)
+            { 
+                if(!_isMovingBackwards)
+                    transform.localRotation *= Quaternion.Euler(0f, 0f, -turnSpeed*Time.deltaTime).normalized;
+                else
+                    transform.localRotation *= Quaternion.Euler(0f, 0f, turnSpeed*Time.deltaTime).normalized;
+            }
 
-        if (Keyboard.current.aKey.isPressed)
-        { 
-            if (!_isMovingBackwards)
-                transform.localRotation *= Quaternion.Euler(0f, 0f, turnSpeed*Time.deltaTime).normalized;
-            else
-                transform.localRotation *= Quaternion.Euler(0f, 0f, -turnSpeed*Time.deltaTime).normalized;
+            if (Keyboard.current.aKey.isPressed)
+            { 
+                if (!_isMovingBackwards)
+                    transform.localRotation *= Quaternion.Euler(0f, 0f, turnSpeed*Time.deltaTime).normalized;
+                else
+                    transform.localRotation *= Quaternion.Euler(0f, 0f, -turnSpeed*Time.deltaTime).normalized;
+            }
         }
     }
 }
