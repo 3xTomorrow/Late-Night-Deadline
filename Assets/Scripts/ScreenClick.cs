@@ -9,20 +9,18 @@ public class ScreenClick : MonoBehaviour
 {
     [SerializeField] private Camera worldCam;
     [SerializeField] private Volume computerVolume;
-
-    private float paniniDistance = 1f;
     
     private void Update()
     {
-        var panini = computerVolume.profile.TryGet<PaniniProjection>(out PaniniProjection p) ? p : null;
-        Vector2 src = panini != null && panini.active && panini.distance.value > 0
-            ? MouseToSource(worldCam, Mouse.current.position.ReadValue(), panini.distance.value, panini.cropToFit.value)
-                : (Vector2) Mouse.current.position.ReadValue();
-        
-        Vector2 mousePosNew = worldCam.ScreenToWorldPoint(src);
-        
         if (Mouse.current.leftButton.isPressed)
         {
+            var panini = computerVolume.profile.TryGet<PaniniProjection>(out PaniniProjection p) ? p : null;
+            Vector2 src = panini != null && panini.active && panini.distance.value > 0
+                ? MouseToSource(worldCam, Mouse.current.position.ReadValue(), panini.distance.value, panini.cropToFit.value)
+                : (Vector2) Mouse.current.position.ReadValue();
+        
+            Vector2 mousePosNew = worldCam.ScreenToWorldPoint(src);
+            
             Collider2D ray = Physics2D.OverlapPoint(mousePosNew);
             if (ray != null)
             {

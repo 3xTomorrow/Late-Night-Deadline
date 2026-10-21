@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -9,6 +10,7 @@ public class ComputerSwitchManager : MonoBehaviour
     [SerializeField] private PlayerMovement player;
     [SerializeField] private PlayerRaycast playerRaycast;
     [SerializeField] private Volume computerVolume;
+    [SerializeField] private TMP_Text interactableText;
     
     private void Start()
     {
@@ -22,6 +24,7 @@ public class ComputerSwitchManager : MonoBehaviour
         computerVolume.enabled = true;
         player.enabled = false;
         playerRaycast.enabled = false;
+        interactableText.enabled = false;
     }
     
     private void PowerButtonOnPowerButtonPressed(object sender, EventArgs e)
@@ -30,6 +33,7 @@ public class ComputerSwitchManager : MonoBehaviour
         computerVolume.enabled = false;
         player.enabled = true;
         playerRaycast.enabled = true;
+        interactableText.enabled = true;
     }
 
 
