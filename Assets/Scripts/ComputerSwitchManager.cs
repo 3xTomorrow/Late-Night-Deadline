@@ -3,6 +3,7 @@ using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class ComputerSwitchManager : MonoBehaviour
 {
@@ -11,11 +12,18 @@ public class ComputerSwitchManager : MonoBehaviour
     [SerializeField] private PlayerRaycast playerRaycast;
     [SerializeField] private Volume computerVolume;
     [SerializeField] private TMP_Text interactableText;
+    [SerializeField] private Light2D globalLight;
     
     private void Start()
     {
         Computer.OnComputerInteract += ComputerOnComputerInteract;
         PowerButton.PowerButtonPressed += PowerButtonOnPowerButtonPressed;
+        
+        //Checks if lights are "on" for debug purposes
+        if (Mathf.Approximately(globalLight.intensity, 1))
+        {
+            globalLight = null;
+        }
     }
     
     private void ComputerOnComputerInteract(object sender, EventArgs e)
@@ -25,6 +33,8 @@ public class ComputerSwitchManager : MonoBehaviour
         player.enabled = false;
         playerRaycast.enabled = false;
         interactableText.enabled = false;
+        if(globalLight != null)
+            globalLight.intensity = 1;
     }
     
     private void PowerButtonOnPowerButtonPressed(object sender, EventArgs e)
@@ -34,6 +44,8 @@ public class ComputerSwitchManager : MonoBehaviour
         player.enabled = true;
         playerRaycast.enabled = true;
         interactableText.enabled = true;
+        if(globalLight != null)
+            globalLight.intensity = 0.05f;
     }
 
 
