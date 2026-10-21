@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class BatteryDrawer : MonoBehaviour, IInteractable
 {
+    [SerializeField] private Flashlight flashlight;
+    
     public void Interact()
     {
-        print("Battery added to inventory");
+        flashlight.AddBattery(1);
     }
 }
