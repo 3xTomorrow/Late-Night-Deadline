@@ -49,6 +49,12 @@ public class Flashlight : MonoBehaviour
             flashlight.SetActive(false);
             _flashlightOn = false;
             _chargeDepleted = true;
+            if (Keyboard.current.gKey.wasPressedThisFrame && currentBattery > 0)
+            {
+                chargeSlider.value = chargeSlider.maxValue;
+                _chargeDepleted = false;
+                RemoveBattery(1);
+            }
         }
 
         //Debug Purposes
@@ -66,6 +72,13 @@ public class Flashlight : MonoBehaviour
             currentBattery = batteryCapacity;
         else
             currentBattery += batteryAmount;
-        
+    }
+
+    public void RemoveBattery(int batteryAmount)
+    {
+        if(currentBattery - batteryAmount < 0)
+            currentBattery = 0;
+        else
+            currentBattery -= batteryAmount;
     }
 }

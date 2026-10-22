@@ -1,18 +1,16 @@
 using System;
-using TMPro;
-using Unity.Cinemachine;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class ComputerSwitchManager : MonoBehaviour
 {
-    [SerializeField] private CinemachineCamera computerCamera; 
-    [SerializeField] private PlayerMovement player;
     [SerializeField] private PlayerRaycast playerRaycast;
-    [SerializeField] private Volume computerVolume;
-    [SerializeField] private TMP_Text interactableText;
     [SerializeField] private Light2D globalLight;
+
+    [SerializeField] private List<Behaviour> computerComponents;
+    [SerializeField] private List<Behaviour> playerComponents;
     
     private void Start()
     {
@@ -28,22 +26,38 @@ public class ComputerSwitchManager : MonoBehaviour
     
     private void ComputerOnComputerInteract(object sender, EventArgs e)
     {
-        computerCamera.enabled = true;
-        computerVolume.enabled = true;
-        player.enabled = false;
+        foreach (Behaviour computerComponent in computerComponents)
+        {
+            computerComponent.enabled = true;
+        }
+        foreach (Behaviour playerComponent in playerComponents)
+        {
+            if (playerComponent is Slider)
+            {
+                playerComponent.gameObject.SetActive(false);
+            } else
+                playerComponent.enabled = false;
+        }
         playerRaycast.enabled = false;
-        interactableText.enabled = false;
         if(globalLight != null)
             globalLight.intensity = 1;
     }
     
     private void PowerButtonOnPowerButtonPressed(object sender, EventArgs e)
     {
-        computerCamera.enabled = false;
-        computerVolume.enabled = false;
-        player.enabled = true;
+        foreach (Behaviour computerComponent in computerComponents)
+        {
+            computerComponent.enabled = false;
+        }
+        foreach (Behaviour playerComponent in playerComponents)
+        {
+            if (playerComponent is Slider)
+            {
+                playerComponent.gameObject.SetActive(true);
+            } else
+                playerComponent.enabled = true;
+        }
         playerRaycast.enabled = true;
-        interactableText.enabled = true;
         if(globalLight != null)
             globalLight.intensity = 0.05f;
     }
