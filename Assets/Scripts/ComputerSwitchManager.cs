@@ -59,7 +59,7 @@ public class ComputerSwitchManager : MonoBehaviour
         }
         playerRaycast.enabled = true;
         if(globalLight != null)
-            globalLight.intensity = 0.05f;
+            globalLight.intensity = 0.005f;
     }
 
 

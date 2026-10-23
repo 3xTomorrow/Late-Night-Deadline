@@ -13,7 +13,7 @@ public class PlayerRaycast : MonoBehaviour
     {
         Vector2 curPosition = new Vector2(transform.position.x, transform.position.y);
         RaycastHit2D rayhit = Physics2D.Raycast(curPosition, transform.up, reachDistance, layerMask);
-        Debug.DrawRay(new Vector2(transform.position.x, transform.position.y), transform.up, Color.red);
+        Debug.DrawRay(curPosition, transform.up * reachDistance, Color.red);
 
         if (rayhit.collider != null)
         {
