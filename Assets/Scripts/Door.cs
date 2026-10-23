@@ -10,25 +10,37 @@ public class Door : MonoBehaviour, IInteractable
     private BoxCollider2D _doorCollider;
     
     private bool _open = false;
-
+    private Quaternion closedRotation = Quaternion.Euler(0f, 0f, 0f);
+    private Quaternion openRotation = Quaternion.Euler(0f, 0f, 90f);
+    private float doorOpenSpeed = 5f;
+    
     private void Awake()
     {
         _doorAnimator = GetComponent<Animator>();
         _doorCollider = GetComponent<BoxCollider2D>();
+    }
+
+    private void Update()
+    {
+        //Quaternion.Slerp(transform.rotation,openRotation,doorOpenSpeed * Time.deltaTime);
     }
     
     public void Interact()
     {
         if (!_open)
         {
-            StartCoroutine(OpenDoor());
-            _doorAnimator.SetBool(DOOR_INTERACTED, true);
+            print("opening door");
+            //StartCoroutine(OpenDoor());
+            //_doorAnimator.SetBool(DOOR_INTERACTED, true);
+            transform.rotation = Quaternion.Slerp(transform.rotation,openRotation,doorOpenSpeed * Time.deltaTime);
             _open = true;
         }
         else
         {
-            StartCoroutine(OpenDoor());
-            _doorAnimator.SetBool(DOOR_INTERACTED, false);
+            print("closing door");
+            //StartCoroutine(OpenDoor());
+            //_doorAnimator.SetBool(DOOR_INTERACTED, false);
+            transform.rotation = Quaternion.Slerp(transform.rotation,closedRotation,doorOpenSpeed * Time.deltaTime);
             _open = false;
         }
     }
