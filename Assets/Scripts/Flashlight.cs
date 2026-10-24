@@ -56,13 +56,11 @@ public class Flashlight : MonoBehaviour
                 RemoveBattery(1);
             }
         }
+    }
 
-        //Debug Purposes
-        // if (Keyboard.current.lKey.wasPressedThisFrame)
-        // {
-        //     if(currentBattery > 0)
-        //         currentBattery--;
-        // }
+    public bool IsFullOnBattery()
+    {
+        return currentBattery == batteryCapacity;
     }
 
     //Adds battery. Called by BatteryDrawer.cs

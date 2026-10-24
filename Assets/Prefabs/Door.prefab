@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5033971486273248578}
-  - component: {fileID: 9137230233479307396}
+  - component: {fileID: 6500049193587245426}
   - component: {fileID: 6779829097166009641}
   - component: {fileID: 2269968756215166394}
   m_Layer: 3
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 1698828589834619319}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &9137230233479307396
+--- !u!61 &6500049193587245426
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,11 +65,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.10311413, y: -0.9937441}
+  m_Offset: {x: -0.101857185, y: -0.99384284}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -79,7 +79,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.18509674, y: 1.9785122}
+  m_Size: {x: 0.18513775, y: 1.9611049}
   m_EdgeRadius: 0
 --- !u!114 &6779829097166009641
 MonoBehaviour:
@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   doorOpenSpeed: 2
+  doorCollider: {fileID: 249040418175714500}
 --- !u!95 &2269968756215166394
 Animator:
   serializedVersion: 7
@@ -353,7 +354,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9032829257539938917}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}

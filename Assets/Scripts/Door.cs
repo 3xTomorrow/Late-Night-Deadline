@@ -6,9 +6,9 @@ using UnityEngine;
 public class Door : MonoBehaviour, IInteractable
 {
     [SerializeField] private float doorOpenSpeed = 2f;
+    [SerializeField] private BoxCollider2D doorCollider;
     
     private Animator _doorAnimator;
-    private BoxCollider2D _doorCollider;
 
     private Quaternion _closedRotation;
     private Quaternion _openRotation;
@@ -20,12 +20,6 @@ public class Door : MonoBehaviour, IInteractable
         _closedRotation = transform.rotation;
         _openRotation = _closedRotation * Quaternion.Euler(0f,0f,90);
         _doorAnimator = GetComponent<Animator>();
-        _doorCollider = GetComponent<BoxCollider2D>();
-    }
-
-    private void Update()
-    {
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, _openRotation, 100f * Time.deltaTime);
     }
     
     public void Interact()
@@ -46,9 +40,9 @@ public class Door : MonoBehaviour, IInteractable
 
     IEnumerator OpenDoor()
     {
-        _doorCollider.enabled = false;
+        doorCollider.enabled = false;
         yield return new WaitForSeconds(1f / doorOpenSpeed);
-        _doorCollider.enabled = true;
+        doorCollider.enabled = true;
     }
 
     //Takes advantage of Coroutines being called over time
