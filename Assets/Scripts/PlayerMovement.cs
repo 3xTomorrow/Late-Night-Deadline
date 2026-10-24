@@ -26,7 +26,8 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         
         if (Keyboard.current.wKey.isPressed)
-        { transform.localPosition += transform.up * (Time.deltaTime * moveSpeed);
+        { 
+            transform.localPosition += transform.up * (Time.deltaTime * moveSpeed);
         }
             
         if (Keyboard.current.sKey.isPressed)

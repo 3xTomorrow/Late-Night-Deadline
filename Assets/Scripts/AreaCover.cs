@@ -1,35 +1,29 @@
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AreaCover : MonoBehaviour
 {
-    private const string Player = "Player";
+    [SerializeField] private float darkeningSpeed = 2f;
     
     private SpriteRenderer _spriteRenderer;
-
+    private bool _inZone;
+    
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    //Make a delay for the darkness to appear
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Update()
     {
-        if (other.tag == Player)
-            _spriteRenderer.enabled = false;
+        if(_inZone)
+            _spriteRenderer.color = Color.Lerp(_spriteRenderer.color, new Color32(0,0,0,0), Time.deltaTime * darkeningSpeed);
+        else if(!_inZone)
+            _spriteRenderer.color = Color.Lerp(_spriteRenderer.color, new Color32(0,0,0,255), Time.deltaTime * darkeningSpeed);
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.tag == Player)
-            _spriteRenderer.enabled = false;
-    }
+    private void OnTriggerStay2D(Collider2D other) { _inZone = true; }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == Player)
-            _spriteRenderer.enabled = true;
-    }
-    
-    
+    private void OnTriggerExit2D(Collider2D other) { _inZone = false; }
 }
