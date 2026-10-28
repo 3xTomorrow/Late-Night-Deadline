@@ -14,22 +14,40 @@ public class ScreenClick : MonoBehaviour
     {
         if (Mouse.current.leftButton.isPressed)
         {
-            var panini = computerVolume.profile.TryGet<PaniniProjection>(out PaniniProjection p) ? p : null;
-            Vector2 src = panini != null && panini.active && panini.distance.value > 0
-                ? MouseToSource(worldCam, Mouse.current.position.ReadValue(), panini.distance.value, panini.cropToFit.value)
-                : (Vector2) Mouse.current.position.ReadValue();
-        
-            Vector2 mousePosNew = worldCam.ScreenToWorldPoint(src);
-            
+            Vector2 mousePosNew = CalculateMousePosition();
             Collider2D ray = Physics2D.OverlapPoint(mousePosNew);
             if (ray != null)
             {
-                if (ray.gameObject.TryGetComponent<IScreenButton>(out IScreenButton button))
+                if (ray.gameObject.TryGetComponent(out IDraggable draggable))
+                {
+                    draggable.OnDrag(mousePosNew);
+                }
+            }
+        }
+        
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Vector2 mousePosNew = CalculateMousePosition();
+            Collider2D ray = Physics2D.OverlapPoint(mousePosNew);
+            
+            if (ray != null)
+            {
+                if (ray.gameObject.TryGetComponent(out IScreenButton button))
                 {
                     button.Clicked();
                 }
             }
         }
+    }
+
+    private Vector2 CalculateMousePosition()
+    {
+        var panini = computerVolume.profile.TryGet(out PaniniProjection p) ? p : null;
+        Vector2 src = panini != null && panini.active && panini.distance.value > 0
+            ? MouseToSource(worldCam, Mouse.current.position.ReadValue(), panini.distance.value, panini.cropToFit.value)
+            : Mouse.current.position.ReadValue();
+        Vector2 mousePosNew = worldCam.ScreenToWorldPoint(src);
+        return mousePosNew;
     }
     
     /*

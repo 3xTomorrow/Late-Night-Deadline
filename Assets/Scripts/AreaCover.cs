@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class AreaCover : MonoBehaviour
 {
-    [SerializeField] private float darkeningSpeed = 2f;
+    private float darkeningSpeed = 8f;
+    private float lighteningSpeed = 4f;
     
     private SpriteRenderer _spriteRenderer;
     private bool _inZone;
@@ -18,7 +19,7 @@ public class AreaCover : MonoBehaviour
     private void Update()
     {
         if(_inZone)
-            _spriteRenderer.color = Color.Lerp(_spriteRenderer.color, new Color32(0,0,0,0), Time.deltaTime * darkeningSpeed);
+            _spriteRenderer.color = Color.Lerp(_spriteRenderer.color, new Color32(0,0,0,0), Time.deltaTime * lighteningSpeed );
         else if(!_inZone)
             _spriteRenderer.color = Color.Lerp(_spriteRenderer.color, new Color32(0,0,0,255), Time.deltaTime * darkeningSpeed);
     }

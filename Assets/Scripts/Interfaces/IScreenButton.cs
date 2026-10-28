@@ -3,5 +3,6 @@
     public interface IScreenButton
     {
         public void Clicked();
+
     }
 }
