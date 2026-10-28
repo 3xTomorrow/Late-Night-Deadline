@@ -4,18 +4,34 @@ using UnityEngine.InputSystem;
 
 public class ApplicationWindow : MonoBehaviour, IDraggable
 {
+    [SerializeField] private LayerMask borderMask;
+
     private Vector2 _offset;
+    
+    private void Update()
+    {
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        
+        Collider2D collider = Physics2D.OverlapBox(transform.position, transform.lossyScale, 0, borderMask);
+        if (collider != null)
+        {
+            
+        }
+
+    }
     
     public void OnStartDrag(Vector2 position)
     {
-        _offset = position - (Vector2)transform.position; //Don't know if this works yet
+        _offset = position - (Vector2)transform.position;
     }
     
     public void OnDrag(Vector2 position)
     {
-        print("being dragged");
-        
-        //When being dragged, the object moves towards <position> plus the offset
+        transform.position = position - _offset;
     }
-    
+
+    public void OnEndDrag()
+    {
+        print("ending drag");
+    }
 }

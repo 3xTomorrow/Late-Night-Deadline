@@ -10,21 +10,11 @@ public class ScreenClick : MonoBehaviour
     [SerializeField] private Camera worldCam;
     [SerializeField] private Volume computerVolume;
     
+    private IDraggable _tempDraggable;
+    private bool _canDrag;
+    
     private void Update()
     {
-        if (Mouse.current.leftButton.isPressed)
-        {
-            Vector2 mousePosNew = CalculateMousePosition();
-            Collider2D ray = Physics2D.OverlapPoint(mousePosNew);
-            if (ray != null)
-            {
-                if (ray.gameObject.TryGetComponent(out IDraggable draggable))
-                {
-                    draggable.OnDrag(mousePosNew);
-                }
-            }
-        }
-        
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Vector2 mousePosNew = CalculateMousePosition();
@@ -36,7 +26,53 @@ public class ScreenClick : MonoBehaviour
                 {
                     button.Clicked();
                 }
+
+                if (ray.gameObject.TryGetComponent(out IDraggable draggable))
+                {
+                    draggable.OnStartDrag(mousePosNew);
+                    _canDrag = true;
+                    _tempDraggable = draggable;
+                }
             }
+            else
+            {
+                _canDrag = false;
+            }
+        }
+        
+        if (Mouse.current.leftButton.isPressed)
+        {
+            Vector2 mousePosNew = CalculateMousePosition();
+            Collider2D ray = Physics2D.OverlapPoint(mousePosNew);
+            if (ray != null)
+            {
+                if (ray.gameObject.TryGetComponent(out IDraggable draggable) && _canDrag)
+                {
+                    draggable.OnDrag(mousePosNew);
+                }
+
+                if (_tempDraggable != null && _canDrag)
+                {
+                    _tempDraggable.OnDrag(mousePosNew);
+                }
+            }
+            else if(_tempDraggable != null && _canDrag)
+            {
+                _tempDraggable.OnDrag(mousePosNew);
+            }
+        }
+
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            if (_tempDraggable != null)
+            {
+                _tempDraggable.OnEndDrag();
+            }
+            else
+            {
+                _canDrag = true;
+            }
+            _tempDraggable = null;
         }
     }
 
