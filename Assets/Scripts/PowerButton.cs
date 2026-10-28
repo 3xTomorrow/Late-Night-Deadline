@@ -10,4 +10,6 @@ public class PowerButton : MonoBehaviour, IScreenButton
     {
         PowerButtonPressed?.Invoke(this, EventArgs.Empty);
     }
+    
+    public void ReleaseClick() { }
 }

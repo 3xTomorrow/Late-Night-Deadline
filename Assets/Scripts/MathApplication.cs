@@ -3,8 +3,15 @@ using UnityEngine;
 
 public class MathApplication : MonoBehaviour, IScreenButton
 {
+    [SerializeField] private GameObject mathWindow;
+    
     public void Clicked()
     {
-        print("Opening Math Application");
+        
+    }
+
+    public void ReleaseClick()
+    {
+        mathWindow.SetActive(true);
     }
 }

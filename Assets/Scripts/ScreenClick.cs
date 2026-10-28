@@ -1,5 +1,5 @@
+using System;
 using Interfaces;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -9,8 +9,11 @@ public class ScreenClick : MonoBehaviour
 {
     [SerializeField] private Camera worldCam;
     [SerializeField] private Volume computerVolume;
+
+    private Vector2 _clampedMousePos;
     
     private IDraggable _tempDraggable;
+    private IScreenButton _tempButton;
     private bool _canDrag;
     
     private void Update()
@@ -25,8 +28,8 @@ public class ScreenClick : MonoBehaviour
                 if (ray.gameObject.TryGetComponent(out IScreenButton button))
                 {
                     button.Clicked();
+                    _tempButton = button;
                 }
-
                 if (ray.gameObject.TryGetComponent(out IDraggable draggable))
                 {
                     draggable.OnStartDrag(mousePosNew);
@@ -43,7 +46,14 @@ public class ScreenClick : MonoBehaviour
         if (Mouse.current.leftButton.isPressed)
         {
             Vector2 mousePosNew = CalculateMousePosition();
-            Collider2D ray = Physics2D.OverlapPoint(mousePosNew);
+            mousePosNew.x = Math.Clamp(mousePosNew.x, (-transform.localScale.x / 2) + transform.localPosition.x,
+                (transform.localScale.x / 2) + transform.localPosition.x);
+            mousePosNew.y = Math.Clamp(mousePosNew.y, (-transform.localScale.y / 2) + transform.localPosition.y,
+                (transform.localScale.y / 2) + transform.localPosition.y);
+            Vector2 clampedMousePosNew = new Vector2(mousePosNew.x, mousePosNew.y);
+            
+            
+            Collider2D ray = Physics2D.OverlapPoint(clampedMousePosNew);
             if (ray != null)
             {
                 if (ray.gameObject.TryGetComponent(out IDraggable draggable) && _canDrag)
@@ -64,6 +74,10 @@ public class ScreenClick : MonoBehaviour
 
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
+            if (_tempButton != null)
+            {
+                _tempButton.ReleaseClick();
+            }
             if (_tempDraggable != null)
             {
                 _tempDraggable.OnEndDrag();
@@ -73,6 +87,7 @@ public class ScreenClick : MonoBehaviour
                 _canDrag = true;
             }
             _tempDraggable = null;
+            _tempButton = null;
         }
     }
 
