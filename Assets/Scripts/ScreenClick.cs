@@ -29,6 +29,7 @@ public class ScreenClick : MonoBehaviour
                 {
                     button.Clicked();
                     _tempButton = button;
+                    _canDrag = false;
                 }
                 if (ray.gameObject.TryGetComponent(out IDraggable draggable))
                 {
@@ -45,6 +46,7 @@ public class ScreenClick : MonoBehaviour
         
         if (Mouse.current.leftButton.isPressed)
         {
+            //Clamps the mouse position so the draggable object can't be put outside the screen.
             Vector2 mousePosNew = CalculateMousePosition();
             mousePosNew.x = Math.Clamp(mousePosNew.x, (-transform.localScale.x / 2) + transform.localPosition.x,
                 (transform.localScale.x / 2) + transform.localPosition.x);
@@ -77,6 +79,7 @@ public class ScreenClick : MonoBehaviour
             if (_tempButton != null)
             {
                 _tempButton.ReleaseClick();
+                _canDrag = true;
             }
             if (_tempDraggable != null)
             {

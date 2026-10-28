@@ -25,5 +25,6 @@ public class CloseApplication : MonoBehaviour, IScreenButton
     {
         _spriteRenderer.color = _black;
         appWindow.SetActive(false);
+        appWindow.transform.localPosition = Vector3.zero;
     }
 }

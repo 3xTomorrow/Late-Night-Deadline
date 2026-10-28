@@ -11,13 +11,6 @@ public class ApplicationWindow : MonoBehaviour, IDraggable
     private void Update()
     {
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        
-        Collider2D collider = Physics2D.OverlapBox(transform.position, transform.lossyScale, 0, borderMask);
-        if (collider != null)
-        {
-            
-        }
-
     }
     
     public void OnStartDrag(Vector2 position)
