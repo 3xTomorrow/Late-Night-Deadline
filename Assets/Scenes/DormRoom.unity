@@ -797,7 +797,9 @@ MonoBehaviour:
   - {fileID: 757703538}
   - {fileID: 895337812}
   glassTap: {fileID: 8300000, guid: 45d4b5368f2cdac43921e6f8ef6aaff1, type: 3}
-  waitTime: 5
+  doorCreak: {fileID: 8300000, guid: e67d450dec30c5b46ae7ab9c309fe140, type: 3}
+  closetShuffle: {fileID: 8300000, guid: 93c02eed8e380b04c807f883034bacc6, type: 3}
+  waitTime: 100
 --- !u!82 &281769718
 AudioSource:
   m_ObjectHideFlags: 0
