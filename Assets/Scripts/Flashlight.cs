@@ -8,6 +8,7 @@ public class Flashlight : MonoBehaviour
 {
     [SerializeField] private GameObject flashlight;
     
+    
     [Header("Battery and Charge")]
     [SerializeField] private int batteryCapacity = 3;
     [SerializeField] private int currentBattery = 3;
