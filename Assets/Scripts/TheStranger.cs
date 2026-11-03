@@ -72,13 +72,11 @@ public class TheStranger : MonoBehaviour
             if(_shineValue <= 0f) { _shineValue = 0f; }
         }
         
-        print(_shineValue);
         if (_shineValue > shineThreshold)
         {
             ChangeState(true);
             _shineValue = 0f;
         }
-        
         
         //Changes the variables of The Stranger based on his state
         switch (_currentState)
