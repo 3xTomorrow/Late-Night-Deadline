@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -7,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Camera worldCam;
     [SerializeField] private float moveSpeed = 2.75f;
     [SerializeField] private float rotationSpeed;
+
+    //If I ever decide to add sprinting, have the Event Handler send the "isSprinting" bool
+    public static event EventHandler Moving;
     
     private void Update()
     { 
@@ -28,8 +32,9 @@ public class PlayerMovement : MonoBehaviour
         if (Keyboard.current.wKey.isPressed)
         {
             transform.localPosition += transform.up * (Time.deltaTime * moveSpeed);
+            Moving?.Invoke(this, EventArgs.Empty);
         }
-            
+        
         if (Keyboard.current.sKey.isPressed)
         {
             transform.localPosition += -transform.up * (Time.deltaTime * moveSpeed * 0.5f);
