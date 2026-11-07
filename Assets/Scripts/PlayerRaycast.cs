@@ -1,3 +1,4 @@
+using System;
 using Interfaces;
 using TMPro;
 using UnityEngine;
@@ -6,16 +7,14 @@ using UnityEngine.InputSystem;
 public class PlayerRaycast : MonoBehaviour
 {
     [SerializeField, Min(0)] private float reachDistance;
-    [SerializeField, Min(0)] private float collisionDampening;
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask interactLayer;
     [SerializeField] private TMP_Text screenText;
-
-    public static bool CanMove;
     
     private void Update()
     {
+        
         Vector2 curPosition = new Vector2(transform.position.x, transform.position.y);
-        RaycastHit2D interactRay = Physics2D.Raycast(curPosition, transform.up, reachDistance, layerMask);
+        RaycastHit2D interactRay = Physics2D.Raycast(curPosition, transform.up, reachDistance, interactLayer);
         Debug.DrawRay(curPosition, transform.up * reachDistance, Color.red);
 
         if (interactRay.collider != null)
@@ -24,7 +23,7 @@ public class PlayerRaycast : MonoBehaviour
             screenText.text = "E - " + interactRay.collider.gameObject.name;
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
-                if (interactRay.collider.gameObject.TryGetComponent<IInteractable>(out IInteractable interactable))
+                if (interactRay.collider.gameObject.TryGetComponent(out IInteractable interactable))
                 {
                     interactable.Interact();
                 }
@@ -34,10 +33,5 @@ public class PlayerRaycast : MonoBehaviour
         {
             screenText.enabled = false;
         }
-        
-        CanMove = !Physics2D.Raycast(curPosition, transform.up, (transform.lossyScale.x / 2) + collisionDampening);
-        Debug.DrawRay(curPosition, transform.up * ((transform.lossyScale.x / 2) + collisionDampening), Color.green);
-
-        print(CanMove);
     }
 }
