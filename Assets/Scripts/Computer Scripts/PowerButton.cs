@@ -3,22 +3,27 @@ using Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PowerButton : MonoBehaviour, IScreenButton
+namespace Computer_Scripts
 {
-    public static event EventHandler PowerButtonPressed;
-
-    private void Update()
+    public class PowerButton : MonoBehaviour, IScreenButton
     {
-        if (Keyboard.current.cKey.wasPressedThisFrame)
+        public static event EventHandler PowerButtonPressed;
+
+        private void Update()
         {
-            PowerButtonPressed?.Invoke(this, EventArgs.Empty);
+            if (Keyboard.current.cKey.wasPressedThisFrame)
+            {
+                PowerButtonPressed?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void Clicked()
+        {
+
+        }
+
+        public void ReleaseClick()
+        {
         }
     }
-    
-    public void Clicked()
-    {
-        
-    }
-    
-    public void ReleaseClick() { }
 }

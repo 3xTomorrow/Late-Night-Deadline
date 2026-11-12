@@ -1,71 +1,81 @@
 using System;
 using System.Collections.Generic;
+using Computer_Scripts;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
-public class ComputerSwitchManager : MonoBehaviour
+namespace Computer_Scripts
 {
-    [SerializeField] private PlayerRaycast playerRaycast;
-    [SerializeField] private Light2D globalLight;
+    public class ComputerSwitchManager : MonoBehaviour
+    {
+        [SerializeField] private PlayerRaycast playerRaycast;
+        [SerializeField] private Light2D globalLight;
 
-    [SerializeField] private List<Behaviour> computerComponents;
-    [SerializeField] private List<Behaviour> playerComponents;
-    
-    private void Start()
-    {
-        Computer.OnComputerInteract += ComputerOnComputerInteract;
-        PowerButton.PowerButtonPressed += PowerButtonOnPowerButtonPressed;
-        
-        //Checks if lights are "on" for debug purposes
-        if (Mathf.Approximately(globalLight.intensity, 1))
+        [SerializeField] private List<Behaviour> computerComponents;
+        [SerializeField] private List<Behaviour> playerComponents;
+
+        private void Start()
         {
-            globalLight = null;
-        }
-    }
-    
-    private void ComputerOnComputerInteract(object sender, EventArgs e)
-    {
-        foreach (Behaviour computerComponent in computerComponents)
-        {
-            computerComponent.enabled = true;
-        }
-        foreach (Behaviour playerComponent in playerComponents)
-        {
-            if (playerComponent is Slider)
+            Computer.OnComputerInteract += ComputerOnComputerInteract;
+            PowerButton.PowerButtonPressed += PowerButtonOnPowerButtonPressed;
+
+            //Checks if lights are "on" for debug purposes
+            if (Mathf.Approximately(globalLight.intensity, 1))
             {
-                playerComponent.gameObject.SetActive(false);
-            } else
-                playerComponent.enabled = false;
+                globalLight = null;
+            }
         }
-        playerRaycast.enabled = false;
-        if(globalLight != null)
-            globalLight.intensity = 1;
-    }
-    
-    private void PowerButtonOnPowerButtonPressed(object sender, EventArgs e)
-    {
-        foreach (Behaviour computerComponent in computerComponents)
+
+        private void ComputerOnComputerInteract(object sender, EventArgs e)
         {
-            computerComponent.enabled = false;
-        }
-        foreach (Behaviour playerComponent in playerComponents)
-        {
-            if (playerComponent is Slider)
+            foreach (Behaviour computerComponent in computerComponents)
             {
-                playerComponent.gameObject.SetActive(true);
-            } else
-                playerComponent.enabled = true;
+                computerComponent.enabled = true;
+            }
+
+            foreach (Behaviour playerComponent in playerComponents)
+            {
+                if (playerComponent is Slider)
+                {
+                    playerComponent.gameObject.SetActive(false);
+                }
+                else
+                    playerComponent.enabled = false;
+            }
+
+            playerRaycast.enabled = false;
+            if (globalLight != null)
+                globalLight.intensity = 1;
         }
-        playerRaycast.enabled = true;
-        if(globalLight != null)
-            globalLight.intensity = 0.005f;
-    }
+
+        private void PowerButtonOnPowerButtonPressed(object sender, EventArgs e)
+        {
+            foreach (Behaviour computerComponent in computerComponents)
+            {
+                computerComponent.enabled = false;
+            }
+
+            foreach (Behaviour playerComponent in playerComponents)
+            {
+                if (playerComponent is Slider)
+                {
+                    playerComponent.gameObject.SetActive(true);
+                }
+                else
+                    playerComponent.enabled = true;
+            }
+
+            playerRaycast.enabled = true;
+            if (globalLight != null)
+                globalLight.intensity = 0.005f;
+        }
 
 
-    private void OnDestroy()
-    {
-        Computer.OnComputerInteract -= ComputerOnComputerInteract;
-        PowerButton.PowerButtonPressed -= PowerButtonOnPowerButtonPressed;
+        private void OnDestroy()
+        {
+            Computer.OnComputerInteract -= ComputerOnComputerInteract;
+            PowerButton.PowerButtonPressed -= PowerButtonOnPowerButtonPressed;
+        }
     }
 }

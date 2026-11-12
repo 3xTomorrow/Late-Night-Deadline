@@ -2,12 +2,15 @@ using System;
 using Interfaces;
 using UnityEngine;
 
-public class Computer : MonoBehaviour, IInteractable
+namespace Computer_Scripts
 {
-    public static event EventHandler OnComputerInteract;
-    
-    public void Interact()
+    public class Computer : MonoBehaviour, IInteractable
     {
-        OnComputerInteract?.Invoke(this, EventArgs.Empty);
+        public static event EventHandler OnComputerInteract;
+
+        public void Interact()
+        {
+            OnComputerInteract?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

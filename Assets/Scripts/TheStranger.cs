@@ -53,10 +53,10 @@ public class TheStranger : MonoBehaviour
     private void Update()
     {
         //Debug purposes
-        if (Keyboard.current.lKey.wasPressedThisFrame)
-        {
-            ChangeState(false);
-        }
+        // if (Keyboard.current.lKey.wasPressedThisFrame)
+        // {
+        //     ChangeState(false);
+        // }
         
         //Handles how The Stranger changes states based on time
         if (_readyForStateChange)
