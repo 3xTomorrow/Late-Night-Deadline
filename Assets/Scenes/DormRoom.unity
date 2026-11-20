@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 70353596}
   - component: {fileID: 70353597}
+  - component: {fileID: 70353598}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -180,6 +181,18 @@ MonoBehaviour:
   - {fileID: 854974806}
   - {fileID: 1578979356}
   - {fileID: 571319666}
+--- !u!114 &70353598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70353595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb47a124e19934051af3a6741498490d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GenerateEquations.GenerateEquations
 --- !u!1 &183063187
 GameObject:
   m_ObjectHideFlags: 0
