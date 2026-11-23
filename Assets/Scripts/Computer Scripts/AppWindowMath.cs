@@ -12,6 +12,7 @@ namespace Computer_Scripts
     public class AppWindowMath : ApplicationWindow
     {
         [SerializeField] private TMP_Text equationText;
+        [SerializeField] private TMP_Text answersCorrectText;
         [SerializeField] private TMP_InputField equationInput;
         
         private Dictionary<string, double> _additionEquationsDictionary;
@@ -20,6 +21,7 @@ namespace Computer_Scripts
         private Dictionary<string, double> _divisionEquations;
         
         private KeyValuePair<string, double>[] _equations;
+        private bool[] _wasAnswered;
 
         private int _currentEquation;
 
@@ -44,12 +46,14 @@ namespace Computer_Scripts
             
             _additionEquationsDictionary = GenerateEquations.Generate(GenerateEquations.Operation.Add, 5);
             _equations = DictToPair(_additionEquationsDictionary);
+            _wasAnswered = new bool[_equations.Length];
         }
 
         public override void Update()
         {
             base.Update();
             equationText.text = _equations[_currentEquation].Key;
+            answersCorrectText.text = _answersCorrect + "/" + _equations.Length;
         }
 
         public void NextEquation()
@@ -65,6 +69,15 @@ namespace Computer_Scripts
             if (_currentEquation > 0)
             {
                 _currentEquation--;
+            }
+        }
+        
+        public void SubmitAnswer()
+        {
+            if (CheckAnswer() && _answersCorrect < _equations.Length && !_wasAnswered[_currentEquation])
+            {
+                _wasAnswered[_currentEquation] = true;
+                _answersCorrect++;
             }
         }
 
