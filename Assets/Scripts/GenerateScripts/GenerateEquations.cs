@@ -22,9 +22,9 @@ namespace GenerateScripts
             Multiply
         }
         
-        private static Dictionary<string,int> _additionEquations;
-        private static Dictionary<string,int> _subtractEquations;
-        private static Dictionary<string,int> _multiplicationEquations;
+        private static Dictionary<string,double> _additionEquations;
+        private static Dictionary<string,double> _subtractEquations;
+        private static Dictionary<string,double> _multiplicationEquations;
         private static Dictionary<string,double> _divEquations;
         
         private static List<int> _numbers;
@@ -32,9 +32,9 @@ namespace GenerateScripts
 
         private void Awake()
         {
-            _additionEquations = new Dictionary<string, int>();
-            _subtractEquations = new Dictionary<string, int>();
-            _multiplicationEquations = new Dictionary<string, int>();
+            _additionEquations = new Dictionary<string, double>();
+            _subtractEquations = new Dictionary<string, double>();
+            _multiplicationEquations = new Dictionary<string, double>();
             _divEquations = new Dictionary<string, double>();
             
             _numbers = Enumerable.Range(0, 100).ToList();
@@ -45,7 +45,7 @@ namespace GenerateScripts
         /// Generates random addition equations based on a list of numbers (0-100)
         /// </summary>
         /// <returns>Dictionary of equations</returns>
-        public static Dictionary<string,int> Generate(Operation operation, int times)
+        public static Dictionary<string,double> Generate(Operation operation, int times)
         {
             switch (operation)
             {

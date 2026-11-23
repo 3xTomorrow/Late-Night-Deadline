@@ -31,15 +31,18 @@ namespace Computer_Scripts
         private void OnEnable()
         {
             _canDrag = true;
-            
-            float randomX = Random.Range(0, .1f);
-            float randomY = Random.Range(0, .1f);
-            transform.localPosition = new Vector2(randomX, randomY);
+
+            if (ComputerSwitchManager.AtComputer)
+            {
+                float randomX = Random.Range(0, .1f);
+                float randomY = Random.Range(0, .1f);
+                transform.localPosition = new Vector2(randomX, randomY);   
+            }
         }
         
-        private void Update()
+        public virtual void Update()
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.Euler(0, 0, 0); //Makes sure that the application stays upright
         }
 
         public void OnStartDrag(Vector2 position)

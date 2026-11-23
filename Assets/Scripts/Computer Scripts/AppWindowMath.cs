@@ -12,11 +12,18 @@ namespace Computer_Scripts
     public class AppWindowMath : ApplicationWindow
     {
         [SerializeField] private TMP_Text equationText;
+        [SerializeField] private TMP_InputField equationInput;
         
-        private Dictionary<string, int> _additionEquations;
-        private Dictionary<string,int> _subtractionEquations;
-        private Dictionary<string,int> _multiplicationEquations;
+        private Dictionary<string, double> _additionEquationsDictionary;
+        private Dictionary<string,double> _subtractionEquations;
+        private Dictionary<string,double> _multiplicationEquations;
         private Dictionary<string, double> _divisionEquations;
+        
+        private KeyValuePair<string, double>[] _equations;
+
+        private int _currentEquation;
+
+        private int _answersCorrect;
         
         private Random _random;
 
@@ -24,9 +31,9 @@ namespace Computer_Scripts
         {
             base.Awake();
             
-            _additionEquations = new Dictionary<string, int>();
-            _subtractionEquations = new Dictionary<string, int>();
-            _multiplicationEquations = new Dictionary<string, int>();
+            _additionEquationsDictionary = new Dictionary<string, double>();
+            _subtractionEquations = new Dictionary<string, double>();
+            _multiplicationEquations = new Dictionary<string, double>();
             _divisionEquations = new Dictionary<string, double>();
             _random = new Random();
         }
@@ -35,7 +42,48 @@ namespace Computer_Scripts
         {
             base.Start();
             
-            _additionEquations = GenerateEquations.Generate(GenerateEquations.Operation.Add, 5);
+            _additionEquationsDictionary = GenerateEquations.Generate(GenerateEquations.Operation.Add, 5);
+            _equations = DictToPair(_additionEquationsDictionary);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            equationText.text = _equations[_currentEquation].Key;
+        }
+
+        public void NextEquation()
+        {
+            if (_currentEquation < _equations.Length-1)
+            {
+                _currentEquation++;
+            }
+        }
+
+        public void PreviousEquation()
+        {
+            if (_currentEquation > 0)
+            {
+                _currentEquation--;
+            }
+        }
+
+        private KeyValuePair<K, V>[] DictToPair<K, V>(Dictionary<K, V> dictionary)
+        {
+            KeyValuePair<K, V>[] pairs = new KeyValuePair<K, V>[dictionary.Count];
+            int i = 0;
+            foreach (KeyValuePair<K, V> pair in dictionary)
+            {
+                pairs[i] = pair;
+                ++i;
+            }
+            return pairs;
+        }
+
+        private bool CheckAnswer()
+        {
+            return Mathf.Approximately((float)_equations[_currentEquation].Value,
+                (float)double.Parse(equationInput.text));
         }
         
     }

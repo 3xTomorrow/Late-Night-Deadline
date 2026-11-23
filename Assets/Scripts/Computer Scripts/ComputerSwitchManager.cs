@@ -15,6 +15,8 @@ namespace Computer_Scripts
         [SerializeField] private List<Behaviour> computerComponents;
         [SerializeField] private List<Behaviour> playerComponents;
 
+        public static bool AtComputer = false;
+
         private void Start()
         {
             Computer.OnComputerInteract += ComputerOnComputerInteract;
@@ -29,6 +31,7 @@ namespace Computer_Scripts
 
         private void ComputerOnComputerInteract(object sender, EventArgs e)
         {
+            
             foreach (Behaviour computerComponent in computerComponents)
             {
                 computerComponent.enabled = true;
@@ -47,10 +50,13 @@ namespace Computer_Scripts
             playerRaycast.enabled = false;
             if (globalLight != null)
                 globalLight.intensity = 1;
+            
+            AtComputer = true;
         }
 
         private void PowerButtonOnPowerButtonPressed(object sender, EventArgs e)
         {
+            
             foreach (Behaviour computerComponent in computerComponents)
             {
                 computerComponent.enabled = false;
@@ -69,6 +75,8 @@ namespace Computer_Scripts
             playerRaycast.enabled = true;
             if (globalLight != null)
                 globalLight.intensity = 0.005f;
+            
+            AtComputer = false;
         }
 
 
