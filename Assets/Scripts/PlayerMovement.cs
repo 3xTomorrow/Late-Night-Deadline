@@ -29,13 +29,13 @@ public class PlayerMovement : MonoBehaviour
         //Slerps 'rotation' for smoother character rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         
-        if (Keyboard.current.wKey.isPressed)
+        if (InputManager.IsMoving)
         {
             transform.localPosition += transform.up * (Time.deltaTime * moveSpeed);
             Moving?.Invoke(this, EventArgs.Empty);
         }
         
-        if (Keyboard.current.sKey.isPressed)
+        if (InputManager.IsMovingBackward)
         {
             transform.localPosition += -transform.up * (Time.deltaTime * moveSpeed * 0.5f);
         }

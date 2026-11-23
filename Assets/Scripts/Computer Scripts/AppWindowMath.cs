@@ -44,7 +44,7 @@ namespace Computer_Scripts
         {
             base.Start();
             
-            _additionEquationsDictionary = GenerateEquations.Generate(GenerateEquations.Operation.Add, 5);
+            _additionEquationsDictionary = GenerateEquations.Generate(GenerateEquations.Operation.Add, 10);
             _equations = DictToPair(_additionEquationsDictionary);
             _wasAnswered = new bool[_equations.Length];
         }
@@ -78,6 +78,7 @@ namespace Computer_Scripts
             {
                 _wasAnswered[_currentEquation] = true;
                 _answersCorrect++;
+                equationInput.text = "";
             }
         }
 

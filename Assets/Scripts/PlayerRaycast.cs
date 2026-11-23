@@ -19,12 +19,11 @@ public class PlayerRaycast : MonoBehaviour
         {
             screenText.enabled = true;
             screenText.text = "E - " + rayhit.collider.gameObject.name;
-            if (Keyboard.current.eKey.wasPressedThisFrame)
+            if (InputManager.Interacted)
             {
                 if (rayhit.collider.gameObject.TryGetComponent<IInteractable>(out IInteractable interactable))
                 {
                     interactable.Interact();
-                    
                 }
             }
         }

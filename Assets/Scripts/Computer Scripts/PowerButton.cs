@@ -11,7 +11,7 @@ namespace Computer_Scripts
 
         private void Update()
         {
-            if (Keyboard.current.cKey.wasPressedThisFrame)
+            if (Keyboard.current.cKey.wasPressedThisFrame && !InputBlocker.IsTyping)
             {
                 PowerButtonPressed?.Invoke(this, EventArgs.Empty);
             }

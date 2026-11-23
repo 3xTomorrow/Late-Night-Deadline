@@ -24,7 +24,7 @@ public class Phone : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.tabKey.wasPressedThisFrame)
+        if (InputManager.OpenedPhone)
         {
             _animator.SetTrigger(OpenPhone);
             if (!_phoneOpen)

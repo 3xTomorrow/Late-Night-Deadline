@@ -30,7 +30,7 @@ public class Flashlight : MonoBehaviour
         batteryText.text = currentBattery + " / " + batteryCapacity;
         
         //Input to change the flashlight turning on and off
-        if (Keyboard.current.fKey.wasPressedThisFrame && !_chargeDepleted)
+        if (InputManager.FlashlightTurnedOn && !_chargeDepleted)
         {
             if (!_flashlightOn)
             {
@@ -50,7 +50,7 @@ public class Flashlight : MonoBehaviour
             flashlight.SetActive(false);
             _flashlightOn = false;
             _chargeDepleted = true;
-            if (Keyboard.current.gKey.wasPressedThisFrame && currentBattery > 0)
+            if (InputManager.BatteryReplaced && currentBattery > 0)
             {
                 chargeSlider.value = chargeSlider.maxValue;
                 _chargeDepleted = false;
