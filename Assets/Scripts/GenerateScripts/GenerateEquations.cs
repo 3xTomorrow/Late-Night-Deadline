@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = System.Random;
 
-namespace GenerateEquations
+namespace GenerateScripts
 {
     /// <summary>
     /// This script is meant to generate equations for Math Application within
@@ -39,19 +39,13 @@ namespace GenerateEquations
             
             _numbers = Enumerable.Range(0, 100).ToList();
             _divNumbers = Enumerable.Range(1, 200).ToList();
-
-            GenerateDiv();
-            foreach (string equation in _divEquations.Keys)
-            {
-                print(equation + " = " + _divEquations[equation]);
-            }
         }
 
         /// <summary>
         /// Generates random addition equations based on a list of numbers (0-100)
         /// </summary>
         /// <returns>Dictionary of equations</returns>
-        public static Dictionary<string,int> Generate(Operation operation)
+        public static Dictionary<string,int> Generate(Operation operation, int times)
         {
             switch (operation)
             {
@@ -71,7 +65,7 @@ namespace GenerateEquations
             
             ShuffleNumbers();
             Stack<int> numsStack = new Stack<int>(_numbers);
-            while (numsStack.Count > 0)
+            for(int i =0;i<times;i++)
             {
                 int num1 = numsStack.Pop();
                 int num2 = numsStack.Pop();
@@ -102,14 +96,14 @@ namespace GenerateEquations
             };
         }
 
-        public static Dictionary<string,double> GenerateDiv()
+        public static Dictionary<string,double> GenerateDiv(int times)
         {
             if(_divEquations.Count != 0)
                 _divEquations.Clear();
             
             ShuffleNumbers(true);
             Queue<int> numsStack = new Queue<int>(_divNumbers);
-            while (numsStack.Count > 0)
+            for(int i =0;i<times;i++)
             {
                 int num1 = numsStack.Dequeue();
                 int num2 = numsStack.Dequeue();

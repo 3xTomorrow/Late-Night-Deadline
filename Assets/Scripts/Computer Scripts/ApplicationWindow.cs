@@ -17,14 +17,14 @@ namespace Computer_Scripts
         
         private Vector2 _offset;
 
-        private void Awake()
+        public virtual void Awake()
         {
             _canDrag = true;
+            _windowVisuals = GetComponentsInChildren<Renderer>();
         }
         
-        private void Start()
+        public virtual void Start()
         {
-            _windowVisuals = GetComponentsInChildren<Renderer>();
             _windowText = GetComponentInChildren<Canvas>();
         }
 
@@ -39,8 +39,6 @@ namespace Computer_Scripts
         
         private void Update()
         {
-            print(gameObject.name + " can be dragged: " + _canDrag);
-            
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
