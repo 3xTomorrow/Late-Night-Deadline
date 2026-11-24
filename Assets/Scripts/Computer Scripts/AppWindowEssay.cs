@@ -60,8 +60,6 @@ namespace Computer_Scripts
 
         public void SubmitAnswer()
         {
-            print("Current Sentence: " + _sentences[_currentSentence]);
-            print("Text Input: " + essayInput.text);
             if (CheckAnswer() && _answersCorrect < sentenceCount && !_wasAnswered[_currentSentence])
             {
                 _wasAnswered[_currentSentence] = true;

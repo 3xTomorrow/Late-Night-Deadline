@@ -27,7 +27,6 @@ namespace Computer_Scripts
         {
             _spriteRenderer.color = _black;
             appWindow.SetActive(false);
-            //appWindow.transform.localPosition = Vector3.zero;
         }
     }
 }

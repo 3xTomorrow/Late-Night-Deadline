@@ -151,6 +151,26 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""LeaveComputer"",
+                    ""type"": ""Button"",
+                    ""id"": ""f8fa22fe-169b-4edb-81d4-5a8017bd174f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""acc48b92-ec83-4a88-80b3-d8c493a62978"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -219,6 +239,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ReplaceBattery"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8966d857-913b-41ff-975f-690736551c50"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeaveComputer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f610e8a2-56d3-4943-8223-c5907c68aa1c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -233,6 +275,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_OpenPhone = m_Player.FindAction("OpenPhone", throwIfNotFound: true);
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
         m_Player_ReplaceBattery = m_Player.FindAction("ReplaceBattery", throwIfNotFound: true);
+        m_Player_LeaveComputer = m_Player.FindAction("LeaveComputer", throwIfNotFound: true);
+        m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -319,6 +363,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_OpenPhone;
     private readonly InputAction m_Player_Flashlight;
     private readonly InputAction m_Player_ReplaceBattery;
+    private readonly InputAction m_Player_LeaveComputer;
+    private readonly InputAction m_Player_Click;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -354,6 +400,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/ReplaceBattery".
         /// </summary>
         public InputAction @ReplaceBattery => m_Wrapper.m_Player_ReplaceBattery;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/LeaveComputer".
+        /// </summary>
+        public InputAction @LeaveComputer => m_Wrapper.m_Player_LeaveComputer;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Click".
+        /// </summary>
+        public InputAction @Click => m_Wrapper.m_Player_Click;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -398,6 +452,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ReplaceBattery.started += instance.OnReplaceBattery;
             @ReplaceBattery.performed += instance.OnReplaceBattery;
             @ReplaceBattery.canceled += instance.OnReplaceBattery;
+            @LeaveComputer.started += instance.OnLeaveComputer;
+            @LeaveComputer.performed += instance.OnLeaveComputer;
+            @LeaveComputer.canceled += instance.OnLeaveComputer;
+            @Click.started += instance.OnClick;
+            @Click.performed += instance.OnClick;
+            @Click.canceled += instance.OnClick;
         }
 
         /// <summary>
@@ -427,6 +487,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ReplaceBattery.started -= instance.OnReplaceBattery;
             @ReplaceBattery.performed -= instance.OnReplaceBattery;
             @ReplaceBattery.canceled -= instance.OnReplaceBattery;
+            @LeaveComputer.started -= instance.OnLeaveComputer;
+            @LeaveComputer.performed -= instance.OnLeaveComputer;
+            @LeaveComputer.canceled -= instance.OnLeaveComputer;
+            @Click.started -= instance.OnClick;
+            @Click.performed -= instance.OnClick;
+            @Click.canceled -= instance.OnClick;
         }
 
         /// <summary>
@@ -509,5 +575,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnReplaceBattery(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LeaveComputer" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLeaveComputer(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnClick(InputAction.CallbackContext context);
     }
 }

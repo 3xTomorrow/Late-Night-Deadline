@@ -9,7 +9,7 @@ namespace Computer_Scripts
 
         public void Clicked()
         {
-
+            //Doesn't do anything :D
         }
 
         public void ReleaseClick()

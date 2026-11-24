@@ -20,7 +20,7 @@ namespace Computer_Scripts
 
         private void Update()
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+            if (InputManager.Clicked)
             {
                 Vector2 mousePosNew = CalculateMousePosition();
                 Collider2D ray = Physics2D.OverlapPoint(mousePosNew);
@@ -47,7 +47,7 @@ namespace Computer_Scripts
                 }
             }
 
-            if (Mouse.current.leftButton.isPressed)
+            if (InputManager.Dragging)
             {
                 //Clamps the mouse position so the draggable object can't be put outside the screen.
                 Vector2 mousePosNew = CalculateMousePosition();
@@ -77,7 +77,7 @@ namespace Computer_Scripts
                 }
             }
 
-            if (Mouse.current.leftButton.wasReleasedThisFrame)
+            if (InputManager.ClickReleased)
             {
                 if (_tempButton != null)
                 {
@@ -137,7 +137,7 @@ namespace Computer_Scripts
             return cylPos / (cylDist - d);
         }
 
-        public static Vector2 MouseToSource(Camera cam, Vector2 mousePx, float distance, float cropToFit)
+        private static Vector2 MouseToSource(Camera cam, Vector2 mousePx, float distance, float cropToFit)
         {
             Vector2 res = new Vector2(Screen.width, Screen.height);
             float aspect = res.x / res.y;
